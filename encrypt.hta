@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bulk PDF Encryptor</title>
+    <HTA:APPLICATION APPLICATIONNAME="PDF Encryptor" SCROLL="no" SINGLEINSTANCE="yes" />
+    <script type="text/javascript">
+        function encryptPDFs() {
+            var password = document.getElementById("passwordInput").value;
+            var status = document.getElementById("status");
+
+            if (!password) {
+                status.innerText = "Please enter a password!";
+                return;
+            }
+
+            var shell = new ActiveXObject("WScript.Shell");
+            var command = 'wscript.exe encrypt.vbs "' + password + '"';
+            shell.Run(command, 0, true);  // Run the VBS script silently
+
+            status.innerText = "Encryption complete! Files saved in OutputPDF folder.";
+        }
+    </script>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+    <h1>Bulk PDF Encryptor</h1>
+    <p>Enter a password and click Encrypt to secure your PDFs.</p>
+    <input type="password" id="passwordInput" placeholder="Enter Password" style="padding: 5px; width: 80%;">
+    <br><br>
+    <button onclick="encryptPDFs()" style="padding: 10px; cursor: pointer;">Encrypt PDFs</button>
+    <p id="status"></p>
+
+    <div class="footer-container">
+        <p class="mb-0">Powered by QPDF</p>
+        <small>All processing is done locally - no files are uploaded</small>
+        <small> | Online version: <a href="https://wanazhar.pythonanywhere.com" target="_blank">wanazhar.pythonanywhere.com</a></small>
+    </div>
+</body>
+</html>
